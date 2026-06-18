@@ -1,0 +1,5 @@
+django>=5.2.15
+djangorestframework>=3.17.1
+django-cors-headers>=4.0.0
+sqlalchemy>=2.0.48
+PyJWT>=2.8.0

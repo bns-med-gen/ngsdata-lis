@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Auth Test Login</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
+  <div class="container" style="max-width: 420px; margin-top: 80px;">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Тестовый вход</h3>
+      </div>
+      <div class="panel-body">
+        <form id="login-form" method="post" action=".">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="username">Имя пользователя</label>
+            <input type="text" class="form-control" id="username" name="username" value="test" required>
+          </div>
+          <div class="form-group">
+            <label for="password">Пароль</label>
+            <input type="password" class="form-control" id="password" name="password" value="test" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Войти</button>
+        </form>
+        <div id="login-result" style="margin-top:15px;"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script>
+    $(function(){
+      $('#login-form').on('submit', function(e){
+        e.preventDefault();
+        const form = $(this);
+        $.ajax({
+          url: form.attr('action'),
+          method: 'POST',
+          data: form.serialize(),
+          success(data) {
+            $('#login-result').html('<div class="alert alert-success">Токен получен. accessToken доступен в ответе.</div>');
+            console.log('Access token:', data.access);
+          },
+          error(xhr) {
+            $('#login-result').html('<div class="alert alert-danger">Ошибка входа: ' + xhr.responseJSON.detail + '</div>');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

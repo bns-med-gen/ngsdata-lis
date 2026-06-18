@@ -1,0 +1,8 @@
+lis.db
+.wingman/
+backend/api/migrations/__pycache__/
+backend/lis_api/__pycache__/
+.idea/snakemake-settings.xml
+.idea/inspectionProfiles/Project_Default.xml
+__pycache__/orm.cpython-314.pyc
+*.pyc

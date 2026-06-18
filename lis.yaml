@@ -1,0 +1,16 @@
+name: lis
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - python>=3
+  - setuptools
+  - pip
+  - django
+  - django-cors-headers
+  - djangorestframework  
+  - djangorestframework_simplejwt
+  - sqlalchemy
+  - sqlite  
+  - sqlacodegen
+  

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>LIS Viewer</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/card2medtest.css">
+</head>
+<body>
+  <div class="container">
+    <div class="page-header">
+      <h1>LIS Data Explorer</h1>
+      <p class="lead">Поиск пациентов и исследований по номеру карты</p>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="pull-left">
+              <strong>Состояние авторизации:</strong>
+              <span id="auth-status-text">загрузка...</span>
+            </div>
+            <div class="pull-right">
+              <a id="login-link" class="btn btn-default btn-sm" href="login.html">Login</a>
+              <button id="logout-button" class="btn btn-danger btn-sm" style="display:none;">Logout</button>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-primary">
+          <div class="panel-heading">
+            <h3 class="panel-title">Поиск медкарты</h3>
+          </div>
+          <div class="panel-body">
+            <form id="search-form" class="form-inline" role="form">
+              <div class="form-group">
+                <label class="sr-only" for="card-number">НомерКарты</label>
+                <input type="text" class="form-control" id="card-number" placeholder="Введите НомерКарты">
+              </div>
+              <button type="submit" class="btn btn-primary">Найти</button>
+            </form>
+            <div id="search-alert" class="alert alert-danger" style="display:none; margin-top:15px;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div id="results-panel" class="panel panel-default" style="display:none;">
+          <div class="panel-heading">
+            <h3 class="panel-title">Результаты поиска</h3>
+          </div>
+          <div class="panel-body table-responsive">
+            <table class="table table-bordered table-hover" id="medical-files-table">
+              <thead>
+                <tr>
+                  <th>НомерКарты</th>
+                  <th>ДиагнозПриОбращении</th>
+                  <th>ВходящийДиагнозНеизвестен</th>
+                  <th>Примечание</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+            <nav aria-label="Page navigation" id="medical-files-pagination" style="display:none;">
+              <ul class="pagination"></ul>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" id="patients-row" style="display:none;">
+      <div class="col-md-12">
+        <div class="panel panel-info">
+          <div class="panel-heading">
+            <h3 class="panel-title">Пациенты</h3>
+          </div>
+          <div class="panel-body table-responsive">
+            <p id="patients-info" class="text-muted"></p>
+            <table class="table table-bordered table-hover" id="patients-table">
+              <thead>
+                <tr>
+                  <th>patientCode</th>
+                  <th>ОтношениеКОбратившемуся</th>
+                  <th>Пол</th>
+                  <th>ДатаРождения</th>
+                  <th>Регион</th>
+                  <th>НомерКарты</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+            <p class="text-muted">Кликните на строку пациента, чтобы показать назначенные исследования.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row" id="medical-tests-row" style="display:none;">
+      <div class="col-md-12">
+        <div class="panel panel-success">
+          <div class="panel-heading">
+            <h3 class="panel-title">Исследования по выбранному пациенту</h3>
+          </div>
+          <div class="panel-body table-responsive">
+            <p id="medical-tests-info" class="text-muted"></p>
+            <p id="biomater-list" class="text-muted"></p>
+            <table class="table table-bordered table-hover" id="medical-tests-table">
+              <thead>
+                <tr>
+                  <th>medicalTestId</th>
+                  <th>medicalTestCode</th>
+                  <th>НазваниеПункта</th>
+                  <th>ДатаНаправления</th>
+                  <th>ДатаОплаты</th>
+                  <th>ТипОплаты</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 text-muted">
+        <p>Backend API: <strong>http://localhost:8000/api/</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <div id="toast-container" style="position:fixed; right:20px; bottom:20px; z-index:1050;"></div>
+  <script src="js/auth.js"></script>
+  <script src="js/card2medtest.js"></script>
+</body>
+</html>
