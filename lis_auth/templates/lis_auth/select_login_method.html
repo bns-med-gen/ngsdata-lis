@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>LIS Auth Test Login</title>
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+  <link rel="stylesheet" href="{% static 'bootstrap_v3.3.7/bootstrap.min.css' %}">
+  <style>
+    body { padding-top: 40px; }
+    .login-panel { max-width: 420px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+  <div class="container login-panel">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Авторизация в ЛИС</h3>
+      </div>
+      <div class="panel-body">
+        <a class="btn btn-primary" target="_blank" rel="opener" href="{{ngs_site_login}}?from=LIS">Вход через ngs-data</a>
+        <a class="btn btn-default" href="{% url 'adm_login' %}">Вход администратора</a>
+
+        <div id="login-result" class="alert" style="display:none; margin-top:15px;"></div>
+      </div>
+    </div>
+  </div>
+
+<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+  <script src="{% static 'jquery_v1.12.4/jquery.min.js'%}"></script>
+  <script src="{% static 'bootstrap_v3.3.7/bootstrap.min.js'%}"></script>
+  <script src="{% static 'js/auth.js'%}"></script>
+
+  <script type="text/javascript">
+    {% include "lis_auth/select_login_method.js" %}
+  </script>
+
+</body>
+</html>

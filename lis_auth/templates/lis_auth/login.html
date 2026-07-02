@@ -1,9 +1,11 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>Auth Test Login</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+  <link rel="stylesheet" href=" {% static 'bootstrap_v3.3.7/bootstrap.min.css' %}">
 </head>
 <body>
   <div class="container" style="max-width: 420px; margin-top: 80px;">
@@ -29,7 +31,10 @@
     </div>
   </div>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<!--  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+  <script src="{% static 'jquery_v1.12.4/jquery.min.js'%}"></script>
+  <script src="{% static 'js/auth.js'%}"></script>
+
   <script>
     $(function(){
       $('#login-form').on('submit', function(e){
@@ -42,6 +47,7 @@
           success(data) {
             $('#login-result').html('<div class="alert alert-success">Токен получен. accessToken доступен в ответе.</div>');
             console.log('Access token:', data.access);
+            LISAuth.setAccessToken(data.access);
           },
           error(xhr) {
             $('#login-result').html('<div class="alert alert-danger">Ошибка входа: ' + xhr.responseJSON.detail + '</div>');
@@ -50,5 +56,6 @@
       });
     });
   </script>
+
 </body>
 </html>

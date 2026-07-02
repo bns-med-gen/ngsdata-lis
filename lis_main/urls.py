@@ -1,9 +1,9 @@
 """
-URL configuration for lis_api project.
+URL configuration for lis project.
 """
 from django.urls import path, include
 
 urlpatterns = [
     path('api/', include('api.urls')),
-    path('auth/', include('auth_test.urls')),
+    path('', include('lis_auth.urls')),
 ]

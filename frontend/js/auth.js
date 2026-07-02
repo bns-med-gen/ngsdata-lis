@@ -30,7 +30,7 @@
 
   function refreshToken() {
     return $.ajax({
-      url: 'http://localhost:8000/auth/refresh/',
+      url: '/refresh/',
       method: 'POST',
       xhrFields: { withCredentials: true },
       crossDomain: true

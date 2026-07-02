@@ -1,17 +1,23 @@
 """
-Django settings for lis_api project.
+Django settings for lis project.
 """
 
 import os
 from datetime import timedelta
 from pathlib import Path
 from corsheaders.defaults import default_headers
+# pip install djangorestframework_simplejwt Django==2.2.14
+# pip install python-decouple
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+print("BASE_DIR:", BASE_DIR)
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-dev-key-change-in-production'
+#SECRET_KEY = 'django-insecure-dev-key-change-in-production'
+SECRET_KEY = config('LIS_SECRET')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -23,10 +29,11 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.auth',
     'django.contrib.sessions',
+    'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
     'api',
-    'auth_test',
+    'lis_auth',
 ]
 
 MIDDLEWARE = [
@@ -37,7 +44,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
-ROOT_URLCONF = 'lis_api.urls'
+ROOT_URLCONF = 'lis_main.urls'
 
 TEMPLATES = [
     {
@@ -48,12 +55,13 @@ TEMPLATES = [
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
+                'django.template.context_processors.static',
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'lis_api.wsgi.application'
+WSGI_APPLICATION = 'lis_main.wsgi.application'
 
 # Database
 DATABASES = {
@@ -77,7 +85,10 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = '/frontend/'
+STATIC_URL = 'frontend/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'frontend')
+]
 
 # REST Framework Configuration
 REST_FRAMEWORK = {
@@ -103,11 +114,17 @@ CORS_ALLOW_HEADERS = list(default_headers) + [
     'authorization',
 ]
 CORS_ALLOW_CREDENTIALS = True
-CSRF_TRUSTED_ORIGINS = ['http://localhost:8001']
+CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8000',
+    'http://localhost:8001',
+]
 
-JWT_SECRET = SECRET_KEY
-JWT_ALGORITHM = 'HS256'
-JWT_ISSUER = 'auth_test'
-JWT_AUDIENCE = 'lis_api'
+# из .env файла, который помещен в .gitignore
+JWT_SECRET = config('JWT_SECRET')
+JWT_ALGORITHM = config('JWT_ALGORITHM')
+JWT_ISSUER = config('JWT_ISSUER')
+JWT_AUDIENCE = config('JWT_AUDIENCE')
 JWT_ACCESS_TOKEN_LIFETIME = timedelta(minutes=15)
 JWT_REFRESH_TOKEN_LIFETIME = timedelta(days=7)
+
+NGS_ADDRESS = config('NGS_ADDRESS')

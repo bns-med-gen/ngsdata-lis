@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>LIS Viewer</title>
+<!--  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="{% static 'bootstrap_v3.3.7/bootstrap.min.css' %}">
+</head>
+
+<body>
+
+  <div class="container">
+
+    <div class="page-header">
+      <h1>Содержание</h1>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12">
+        <h3>test links (templates)</h3>
+        <ul>
+<!--            <li><a _blank href="{{ngs_site_login}}">Вход через ngs-data</a></li>-->
+<!--            <li><a href="{% url 'adm_login' %}">Административный вход</a></li>-->
+            <li><a href="{% url 'select_login_method' %}">select_login_method</a></li>
+        </ul>
+
+        <h3>front</h3>
+        <ul>
+            <li><a href="{% static 'card2medtest.html' %}">card2medtest</a></li>
+        </ul>
+
+
+        <h3>test url</h3>
+        <ul>
+            <li><a href="{% url 'auth_refresh' %}">auth_refresh</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+<script src="{% static 'js/auth.js'%}"></script>
+
+</body>
+</html>
